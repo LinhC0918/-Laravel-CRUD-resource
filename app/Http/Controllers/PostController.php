@@ -36,7 +36,12 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        request()->validate([
+            'title' => 'required',
+            'body' => 'required',
+        ]);
+        Post::create($request->all());
+        return redirect()->route('posts.index')->with('success', 'Post created successfully');
     }
 
     /**
@@ -45,9 +50,10 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show($id)
     {
-        //
+        $post = Post::find($id);
+        return view('posts.show', compact('post'));
     }
 
     /**
@@ -56,9 +62,10 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function edit(Post $post)
+    public function edit($id)
     {
-        //
+        $post = Post::find($id);
+        return view('posts.edit', compact('post'));
     }
 
     /**
@@ -68,9 +75,14 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(Request $request, $id)
     {
-        //
+        request()->validate([
+            'title' => 'required',
+            'body' => 'required',
+        ]);
+        Post::find($id)->update($request->all());
+        return redirect()->route('posts.index')->with('success', 'Post updated successfully');
     }
 
     /**
@@ -79,8 +91,9 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function destroy($id)
     {
-        //
+        Post::find($id)->delete();
+        return redirect()->route('posts.index')->with('success', 'Post deleted successfully');
     }
 }

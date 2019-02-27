@@ -1,8 +1,8 @@
 @extends('posts.master')
-@section('title', 'Create')
+@section('title', 'Edit')
 @section('content')
     <div class="col-lg-12">
-        <h3>Add New Post</h3>
+        <h3>Edit Post</h3>
     </div>
 
     @if(count($errors) > 0)
@@ -16,18 +16,19 @@
         </div>
     @endif
 
-    <form action="{{route('posts.store')}}" method="post">
+    <form action="{{route('posts.update', $post->id)}}" method="post">
         @csrf
+        @method('PATCH')
         <div class="form-group">
             <label for="">Title</label>
-            <input type="text" name="title" class="form-control">
+            <input type="text" name="title" value="{{$post->title}}" class="form-control">
         </div>
         <div class="form-group">
             <label for="">Body</label>
-            <textarea name="body" rows="3" class="form-control"></textarea>
+            <textarea name="body" rows="3" class="form-control">{{$post->body}}</textarea>
         </div>
         <a class="btn btn-dark" href="{{route('posts.index')}}">Back</a>
-        <button type="submit" class="btn btn-success">Create</button>
+        <button type="submit" class="btn btn-success">Edit</button>
     </form>
 @endsection
 

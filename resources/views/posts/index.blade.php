@@ -5,21 +5,21 @@
         <h3>Simple CRUD with resource</h3>
     </div>
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-8">
+            @if($message = Session::get('success'))
+                <div class="alert-success">
+                    <p>{{$message}}</p>
+                </div>
+            @endif
+        </div>
+        <div class="col-sm-4">
             <div class="float-right">
                 <a class="btn btn-xs btn-success" href="{{route('posts.create')}}">Create New Post</a>
             </div>
         </div>
     </div>
 
-
-    @if($message = Session::get('success'))
-        <div class="alert alert-success">
-            <p>{{$message}}</p>
-        </div>
-    @endif
-
-    <table class="table table-bordered text-center">
+    <table class="table table-bordered text-center table-hover">
         <tr>
             <th>No.</th>
             <th>Title</th>
